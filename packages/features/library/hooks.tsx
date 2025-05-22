@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useCallback } from 'react';
 import { useAuthStatus } from '@repo/features/auth';
 import { 

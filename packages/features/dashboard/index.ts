@@ -3,3 +3,6 @@
 
 // Dashboard feature to be implemented
 export const dashboardFeatureEnabled = false; 
+
+export * from './components';
+export * from './hooks'; 

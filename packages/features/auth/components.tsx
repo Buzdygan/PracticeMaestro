@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Button } from '@repo/ui/button';
 import { useAuth } from './hooks';

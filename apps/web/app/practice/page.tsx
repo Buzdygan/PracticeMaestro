@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStatus } from "@repo/features/auth";
+import { PracticeContainer } from "@repo/features/practice";
 
 export default function PracticePage() {
   const { isAuthenticated, isLoading } = useAuthStatus();
@@ -35,19 +36,7 @@ export default function PracticePage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">Practice Session</h1>
-        
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-center">
-          <h2 className="text-xl font-semibold mb-4">No Practice Items</h2>
-          <p className="text-gray-600 mb-6">
-            You don't have any practice items due today. Add some items to your library to get started.
-          </p>
-          <button 
-            className="bg-primary-600 text-white px-4 py-2 rounded-md"
-            onClick={() => router.push("/library")}
-          >
-            Go to Library
-          </button>
-        </div>
+        <PracticeContainer />
       </div>
     </div>
   );
