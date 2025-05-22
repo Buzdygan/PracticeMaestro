@@ -4,6 +4,7 @@
 node_modules
 .pnp
 .pnp.js
+.firebaserc
 
 # Local env files
 .env
