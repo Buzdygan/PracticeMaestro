@@ -1,0 +1,16 @@
+---
+description: Coding standards and best practices for the Practice Maestro project.
+globs: "src/**/*.{ts,tsx}"
+alwaysApply: true
+---
+
+## Coding Standards
+
+- **TypeScript**: Enable strict mode with settings like `noImplicitAny`, `strictFunctionTypes`, and `noUnusedLocals`.
+- **Linting**: Use ESLint with recommended settings and TypeScript plugin. Enforce rules such as:
+  - No usage of `any` type.
+  - Consistent use of single quotes.
+- **Formatting**: Utilize Prettier with a print width of 80, single quotes, and trailing commas where valid in ES5.
+- **Component Structure**: Prefer functional components with clearly defined prop interfaces.
+- **Styling**: Apply Tailwind CSS classes; avoid inline styles and CSS-in-JS solutions.
+

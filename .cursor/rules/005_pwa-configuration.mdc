@@ -1,0 +1,19 @@
+---
+description: PWA configuration and best practices for the Practice Maestro project.
+globs: "public/manifest.json, src/service-worker.ts"
+alwaysApply: true
+---
+
+## PWA Configuration
+
+- **Manifest**:
+  - `display`: Set to `standalone`.
+  - `theme_color`: `#1a202c`.
+  - `background_color`: `#ffffff`.
+  - `icons`: Provide 192x192 and 512x512 PNG icons.
+- **Service Worker**:
+  - Use Workbox for service worker generation.
+  - Implement caching strategies:
+    - `CacheFirst` for static assets like JS, CSS, and images.
+    - `NetworkFirst` for API requests.
+

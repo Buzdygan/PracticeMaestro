@@ -1,0 +1,18 @@
+---
+description: Feature flag management for the Practice Maestro project.
+globs: "src/**/*.{ts,tsx}"
+alwaysApply: true
+---
+
+## Feature Flags
+
+Implement feature flags to manage the rollout of new features. Use a centralized configuration to toggle features on or off.
+
+### Features to Flag
+
+- `fragmentPractice`: Enables practice of specific fragments within pieces.
+- `adaptiveTempo`: Suggests tempo adjustments based on user performance.
+- `taggingGoals`: Allows tagging of practice items and setting goals.
+
+**Default State**: All new features should be set to `false` by default and enabled progressively.
+

@@ -1,17 +1,21 @@
 {
-  "name": "my-turborepo",
+  "name": "practice-maestro",
   "private": true,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "check-types": "turbo run check-types",
+    "prepare": "husky",
+    "clean": "rm -rf node_modules && rm -rf **/node_modules && rm -rf **/**/node_modules"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
     "turbo": "^2.5.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "husky": "^9.0.7",
+    "lint-staged": "^15.2.2"
   },
   "engines": {
     "node": ">=18"
@@ -20,5 +24,14 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
+  }
 }

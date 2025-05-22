@@ -1,101 +1,92 @@
-import Image, { type ImageProps } from "next/image";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+import { useAuthStatus } from "@repo/features/auth";
 
 export default function Home() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuthStatus();
+  
+  const handleGetStarted = () => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    } else {
+      router.push("/auth");
+    }
+  };
+  
+  const handleLearnMore = () => {
+    // Scroll to features section or navigate to about page
+    const featuresSection = document.getElementById("features");
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.com/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-primary-800 text-white p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Practice Maestro</h1>
+          <Button>Sign In</Button>
         </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
+      </header>
+
+      <main className="flex-grow container mx-auto p-4">
+        <section className="max-w-4xl mx-auto text-center py-12">
+          <h2 className="text-4xl font-bold mb-6">Master Your Piano Practice</h2>
+          <p className="text-xl mb-8">
+            Using spaced repetition to help you balance reviewing known pieces
+            and learning new ones. Practice smarter, not harder.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Button 
+              onClick={handleGetStarted}
+              className="bg-primary-700 text-white px-6 py-3 rounded-lg"
+            >
+              {isAuthenticated ? "Go to Dashboard" : "Get Started"}
+            </Button>
+            <Button 
+              onClick={handleLearnMore}
+              className="border border-primary-700 px-6 py-3 rounded-lg"
+            >
+              Learn More
+            </Button>
+          </div>
+        </section>
+
+        <section id="features" className="grid md:grid-cols-3 gap-8 py-12">
+          <div className="border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-xl font-semibold mb-3">Spaced Repetition</h3>
+            <p>
+              Optimize your practice with scientifically proven spaced repetition 
+              techniques. Never forget what you've learned.
+            </p>
+          </div>
+          
+          <div className="border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-xl font-semibold mb-3">Daily Practice Plans</h3>
+            <p>
+              Get personalized daily practice schedules based on your progress
+              and goals. Focus on what needs attention.
+            </p>
+          </div>
+          
+          <div className="border border-gray-200 rounded-lg p-6 shadow-sm">
+            <h3 className="text-xl font-semibold mb-3">Track Progress</h3>
+            <p>
+              Monitor your improvement over time with detailed statistics
+              and insights about your practice habits.
+            </p>
+          </div>
+        </section>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.com?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.com →
-        </a>
+
+      <footer className="bg-gray-100 p-6">
+        <div className="container mx-auto text-center text-sm text-gray-600">
+          <p>© {new Date().getFullYear()} Practice Maestro. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   );

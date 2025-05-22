@@ -1,0 +1,20 @@
+---
+description: Folder and file structure guidelines for the Practice Maestro project.
+globs: "*"
+alwaysApply: true
+---
+
+## Folder Structure
+
+- **apps/**: Contains application entry points.
+  - **web/**: React PWA application.
+  - **mobile/**: Capacitor wrapper for mobile platforms.
+- **libs/**: Shared libraries and modules.
+  - **ui/**: Reusable UI components.
+  - **services/**: Business logic and utilities.
+  - **features/**: Feature-specific modules like library, practice, and dashboard.
+- **tools/**: Scripts and tooling configurations.
+- **README.md**: Project documentation.
+- **package.json**: Project dependencies and scripts.
+- **tsconfig.base.json**: Base TypeScript configuration.
+

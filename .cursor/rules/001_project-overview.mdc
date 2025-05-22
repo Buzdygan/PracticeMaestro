@@ -1,0 +1,18 @@
+---
+description: Overview of the Practice Maestro project and its tech stack.
+globs: "*"
+alwaysApply: true
+---
+
+## Project Overview
+
+Practice Maestro is a cross-platform Progressive Web App (PWA) designed to assist piano players in managing their practice routines using spaced repetition techniques. The app helps users balance reviewing known pieces and learning new ones by generating daily practice plans based on various criteria.
+
+### Tech Stack
+
+- **Frontend**: React 19, TypeScript, Tailwind CSS
+- **Cross-Platform**: PWA with Capacitor wrappers for iOS and Android
+- **Backend**: Firebase (Authentication, Firestore, Cloud Functions)
+- **State Management**: React Query, Context API or Zustand
+- **CI/CD**: GitHub Actions deploying to Firebase Hosting
+

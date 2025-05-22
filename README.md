@@ -1,84 +1,108 @@
-# Turborepo starter
+# Practice Maestro
 
-This Turborepo starter is maintained by the Turborepo core team.
+A cross-platform Progressive Web App (PWA) designed to assist piano players in managing their practice routines using spaced repetition techniques. The app helps users balance reviewing known pieces and learning new ones by generating daily practice plans based on various criteria.
 
-## Using this example
+## Features
 
-Run the following command:
+- **Spaced Repetition Engine**: Uses Leitner-style system to optimize practice schedules
+- **Library Management**: CRUD operations for practice items (scales, chords, fragments, pieces)
+- **Daily Practice Plans**: Auto-generated based on due dates and difficulty
+- **Progress Tracking**: Record practice sessions and performance metrics
+- **Cross-Platform**: Works on web, iOS, and Android
 
-```sh
-npx create-turbo@latest
-```
+## Tech Stack
 
-## What's inside?
+- **Frontend**: React 19, TypeScript, Tailwind CSS
+- **Cross-Platform**: PWA with Capacitor wrappers for iOS and Android
+- **Backend**: Firebase (Authentication, Firestore, Cloud Functions)
+- **State Management**: React Query, Zustand
+- **CI/CD**: GitHub Actions deploying to Firebase Hosting
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## Project Structure
 
 ```
-cd my-turborepo
-pnpm build
+/practice-maestro
+├── apps/
+│   ├── web/                  # React PWA
+│   └── mobile/               # Capacitor for iOS/Android
+├── packages/
+│   ├── ui/                   # Shared UI components
+│   ├── services/             # Business logic and utilities
+│   ├── features/             # Feature modules
+│   │   ├── library/          # Library management
+│   │   ├── practice/         # Practice session
+│   │   └── dashboard/        # Statistics and overview
+│   ├── eslint-config/        # Shared ESLint config
+│   └── typescript-config/    # Shared TypeScript config
 ```
 
-### Develop
+## Getting Started
 
-To develop all apps and packages, run the following command:
+### Prerequisites
 
-```
-cd my-turborepo
-pnpm dev
-```
+- Node.js v18 or later
+- npm v10 or later
 
-### Remote Caching
+### Installation
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/practice-maestro.git
+cd practice-maestro
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+# Install dependencies
+npm install
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+# Start development server
+npm run dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Environment Setup
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Create a `.env.local` file in the `apps/web` directory with your Firebase configuration:
 
 ```
-npx turbo link
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 ```
 
-## Useful Links
+## Development Workflow
 
-Learn more about the power of Turborepo:
+- `npm run dev`: Start development servers for all apps
+- `npm run build`: Build all apps for production
+- `npm run lint`: Run ESLint on all packages
+- `npm run format`: Format code with Prettier
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## Mobile Development
+
+```bash
+# Install Capacitor native platforms
+cd apps/mobile
+npm run build  # Builds the web app
+npm run sync   # Syncs web build to native projects
+
+# Open native IDEs
+npm run open:ios
+npm run open:android
+```
+
+## Deployment
+
+The project uses GitHub Actions for CI/CD:
+- Pushes to `dev` branch deploy to staging
+- Pushes to `main` branch deploy to production
+
+## Contributing
+
+1. Create a feature branch (`git checkout -b feature/amazing-feature`)
+2. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Push to the branch (`git push origin feature/amazing-feature`)
+4. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

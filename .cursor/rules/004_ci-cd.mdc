@@ -1,0 +1,24 @@
+---
+description: Continuous Integration and Deployment guidelines for the Practice Maestro project.
+globs: ".github/workflows/*"
+alwaysApply: true
+---
+
+## CI/CD Workflow
+
+- **Branches**:
+  - `dev`: Deploys to the staging Firebase project.
+  - `main`: Deploys to the production Firebase project.
+- **Workflow Steps**:
+  1. Checkout code.
+  2. Cache dependencies.
+  3. Install dependencies.
+  4. Run linting and type checks.
+  5. Execute tests.
+  6. Build the web application.
+  7. Deploy to Firebase Hosting.
+- **Environment Variables**:
+  - `FIREBASE_TOKEN`: Authentication token for Firebase CLI.
+  - `GCP_PROJECT_STAGING`: Identifier for the staging Firebase project.
+  - `GCP_PROJECT_PROD`: Identifier for the production Firebase project.
+
