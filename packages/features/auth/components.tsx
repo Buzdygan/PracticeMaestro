@@ -84,7 +84,7 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-primary-600 text-white py-2 rounded-md"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
         >
           {isLoading ? 'Signing in...' : 'Sign In'}
         </Button>
@@ -97,7 +97,7 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       <Button
         onClick={handleGoogleSignIn}
         disabled={isLoading}
-        className="w-full mt-4 bg-white border border-gray-300 text-gray-700 py-2 rounded-md flex items-center justify-center"
+        className="w-full mt-4 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md flex items-center justify-center"
       >
         <span>Sign in with Google</span>
       </Button>
@@ -192,7 +192,7 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-primary-600 text-white py-2 rounded-md"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
         >
           {isLoading ? 'Creating Account...' : 'Create Account'}
         </Button>

@@ -15,7 +15,7 @@ export const Button = ({
   onClick,
   ...props
 }: ButtonProps) => {
-  const handleClick = onClick || (() => alert(`Hello from your ${appName} app!`));
+  const handleClick = onClick || (() => {});
   
   return (
     <button

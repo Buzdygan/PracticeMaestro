@@ -26,13 +26,6 @@ export default function Home() {
   
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-primary-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Practice Maestro</h1>
-          <Button>Sign In</Button>
-        </div>
-      </header>
-
       <main className="flex-grow container mx-auto p-4">
         <section className="max-w-4xl mx-auto text-center py-12">
           <h2 className="text-4xl font-bold mb-6">Master Your Piano Practice</h2>
