@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { Button } from '@repo/ui/button';
+import { Input } from '@repo/ui/input';
+import { Card, CardBody, CardHeader } from '@repo/ui/card';
 import { useAuth } from './hooks';
 
 // Login Form Component
@@ -43,65 +45,59 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   };
   
   return (
-    <div className="w-full max-w-md mx-auto text-black">
-      <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign In</h2>
-      
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
-          <input
-            id="email"
+    <Card>
+      <CardHeader>
+        <h2 className="heading-3 text-center">Sign In</h2>
+      </CardHeader>
+      <CardBody>
+        {error && (
+          <div className="bg-error-lighter text-error rounded-md p-3 mb-4">
+            {error}
+          </div>
+        )}
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            label="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-        </div>
-        
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            id="password"
+          
+          <Input
+            label="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-        </div>
-        
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
-        >
-          {isLoading ? 'Signing in...' : 'Sign In'}
-        </button>
-      </form>
-      
-      <div className="mt-4 text-center">
-        <span className="text-gray-700">Or</span>
-      </div>
-      
-      <button
-        onClick={handleGoogleSignIn}
-        disabled={isLoading}
-        className="w-full mt-4 bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 font-bold py-2 px-4 rounded-md flex items-center justify-center"
-      >
-        <span>Sign in with Google</span>
-      </button>
-    </div>
+          
+          <Button 
+            type="submit" 
+            fullWidth 
+            isLoading={isLoading}
+            variant="primary"
+          >
+            {isLoading ? 'Signing in...' : 'Sign In'}
+          </Button>
+          
+          <div className="text-center my-4">
+            <span className="text-text-light">Or</span>
+          </div>
+          
+          <Button
+            onClick={handleGoogleSignIn}
+            fullWidth
+            isLoading={isLoading}
+            variant="outline"
+            type="button"
+          >
+            Sign in with Google
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 };
 
@@ -137,67 +133,53 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   };
   
   return (
-    <div className="w-full max-w-md mx-auto text-black">
-      <h2 className="text-2xl font-bold mb-6 text-center text-black">Create Account</h2>
-      
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
-          <input
-            id="email"
+    <Card>
+      <CardHeader>
+        <h2 className="heading-3 text-center">Create Account</h2>
+      </CardHeader>
+      <CardBody>
+        {error && (
+          <div className="bg-error-lighter text-error rounded-md p-3 mb-4">
+            {error}
+          </div>
+        )}
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            label="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-        </div>
-        
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            id="password"
+          
+          <Input
+            label="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-        </div>
-        
-        <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-            Confirm Password
-          </label>
-          <input
-            id="confirmPassword"
+          
+          <Input
+            label="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
-        </div>
-        
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
-        >
-          {isLoading ? 'Creating Account...' : 'Create Account'}
-        </button>
-      </form>
-    </div>
+          
+          <Button 
+            type="submit" 
+            fullWidth 
+            isLoading={isLoading}
+            variant="primary"
+          >
+            {isLoading ? 'Creating Account...' : 'Create Account'}
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 };
 
@@ -223,11 +205,12 @@ export const AuthStatus = () => {
   
   return (
     <div className="flex items-center">
-      <span className="mr-4 text-sm">{user.email}</span>
+      <span className="text-small text-text-white mr-4">{user.email}</span>
       <Button
         onClick={handleLogout}
-        disabled={isLoading}
-        className="text-sm bg-transparent hover:bg-gray-100 text-gray-800 px-3 py-1 rounded"
+        isLoading={isLoading}
+        variant="ghost"
+        size="sm"
       >
         {isLoading ? 'Signing out...' : 'Sign Out'}
       </Button>

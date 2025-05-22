@@ -1,27 +1,56 @@
-import { type JSX } from "react";
+"use client";
 
-export function Card({
-  className,
-  title,
-  children,
-  href,
-}: {
-  className?: string;
-  title: string;
+import React from 'react';
+import classNames from 'classnames';
+
+export interface CardProps {
   children: React.ReactNode;
-  href: string;
-}): JSX.Element {
-  return (
-    <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
-      <p>{children}</p>
-    </a>
-  );
+  className?: string;
 }
+
+export interface CardHeaderProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export interface CardBodyProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export interface CardFooterProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const Card = ({ children, className = '' }: CardProps) => {
+  return (
+    <div className={classNames('card', className)}>
+      {children}
+    </div>
+  );
+};
+
+export const CardHeader = ({ children, className = '' }: CardHeaderProps) => {
+  return (
+    <div className={classNames('card-header', className)}>
+      {children}
+    </div>
+  );
+};
+
+export const CardBody = ({ children, className = '' }: CardBodyProps) => {
+  return (
+    <div className={classNames('card-body', className)}>
+      {children}
+    </div>
+  );
+};
+
+export const CardFooter = ({ children, className = '' }: CardFooterProps) => {
+  return (
+    <div className={classNames('card-footer', className)}>
+      {children}
+    </div>
+  );
+};
