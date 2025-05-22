@@ -43,8 +43,8 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   };
   
   return (
-    <div className="w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+    <div className="w-full max-w-md mx-auto text-black">
+      <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign In</h2>
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -63,7 +63,7 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         
@@ -77,30 +77,30 @@ export const LoginForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         
-        <Button
+        <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
         >
           {isLoading ? 'Signing in...' : 'Sign In'}
-        </Button>
+        </button>
       </form>
       
       <div className="mt-4 text-center">
-        <span className="text-gray-500">Or</span>
+        <span className="text-gray-700">Or</span>
       </div>
       
-      <Button
+      <button
         onClick={handleGoogleSignIn}
         disabled={isLoading}
-        className="w-full mt-4 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md flex items-center justify-center"
+        className="w-full mt-4 bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 font-bold py-2 px-4 rounded-md flex items-center justify-center"
       >
         <span>Sign in with Google</span>
-      </Button>
+      </button>
     </div>
   );
 };
@@ -137,8 +137,8 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   };
   
   return (
-    <div className="w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
+    <div className="w-full max-w-md mx-auto text-black">
+      <h2 className="text-2xl font-bold mb-6 text-center text-black">Create Account</h2>
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -157,7 +157,7 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         
@@ -171,7 +171,7 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         
@@ -185,17 +185,17 @@ export const SignUpForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-black"
           />
         </div>
         
-        <Button
+        <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
         >
           {isLoading ? 'Creating Account...' : 'Create Account'}
-        </Button>
+        </button>
       </form>
     </div>
   );
@@ -227,7 +227,7 @@ export const AuthStatus = () => {
       <Button
         onClick={handleLogout}
         disabled={isLoading}
-        className="text-sm bg-transparent hover:bg-gray-100 text-gray-700 px-3 py-1 rounded"
+        className="text-sm bg-transparent hover:bg-gray-100 text-gray-800 px-3 py-1 rounded"
       >
         {isLoading ? 'Signing out...' : 'Sign Out'}
       </Button>

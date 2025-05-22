@@ -13,12 +13,12 @@ export default function AuthPage() {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4 text-black">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <div className="flex mb-6 border-b">
           <button
             className={`flex-1 py-2 text-center ${
-              activeTab === "login" ? "border-b-2 border-primary-600 text-primary-600" : "text-gray-500"
+              activeTab === "login" ? "border-b-2 border-blue-600 text-blue-600 font-bold" : "text-gray-700"
             }`}
             onClick={() => setActiveTab("login")}
           >
@@ -26,7 +26,7 @@ export default function AuthPage() {
           </button>
           <button
             className={`flex-1 py-2 text-center ${
-              activeTab === "signup" ? "border-b-2 border-primary-600 text-primary-600" : "text-gray-500"
+              activeTab === "signup" ? "border-b-2 border-blue-600 text-blue-600 font-bold" : "text-gray-700"
             }`}
             onClick={() => setActiveTab("signup")}
           >
@@ -34,11 +34,13 @@ export default function AuthPage() {
           </button>
         </div>
         
-        {activeTab === "login" ? (
-          <LoginForm onSuccess={handleSuccess} />
-        ) : (
-          <SignUpForm onSuccess={handleSuccess} />
-        )}
+        <div className="text-black">
+          {activeTab === "login" ? (
+            <LoginForm onSuccess={handleSuccess} />
+          ) : (
+            <SignUpForm onSuccess={handleSuccess} />
+          )}
+        </div>
       </div>
     </div>
   );
