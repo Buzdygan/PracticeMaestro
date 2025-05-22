@@ -64,7 +64,7 @@ export const usePracticeSession = () => {
   }, [fetchDueItems]);
 
   // Complete the current practice item
-  const completeItem = async (status: 'completed' | 'struggled' | 'skipped', actualTempo?: number, notes?: string) => {
+  const completeItem = async (status: 'completed' | 'struggled' | 'skipped', actualTempo?: number, notes?: string | null) => {
     if (!currentItem || !user) {
       return;
     }

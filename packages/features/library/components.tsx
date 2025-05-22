@@ -243,7 +243,7 @@ export const PracticeItemForm = ({
         difficulty,
         targetTempoMin,
         targetTempoMax,
-        notes: notes || undefined
+        notes: notes || null
       };
       
       if (isEditing && item) {

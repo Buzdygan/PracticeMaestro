@@ -52,7 +52,7 @@ export const useDashboard = () => {
       // Fetch sessions for each item
       const allSessions: PracticeSession[] = [];
       for (const item of practiceItems) {
-        const itemSessions = await getItemPracticeSessions(item.id);
+        const itemSessions = await getItemPracticeSessions(item.id, user.uid);
         allSessions.push(...itemSessions);
       }
       setSessions(allSessions);

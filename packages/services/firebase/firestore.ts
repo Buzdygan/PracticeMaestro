@@ -94,10 +94,11 @@ export const addPracticeSession = async (session: Omit<PracticeSession, 'id'>) =
   return { id: docRef.id, ...session };
 };
 
-export const getItemPracticeSessions = async (itemId: string) => {
+export const getItemPracticeSessions = async (itemId: string, userId: string) => {
   const q = query(
     practiceSessionsCollection,
     where('itemId', '==', itemId),
+    where('userId', '==', userId),
     orderBy('date', 'desc')
   );
   

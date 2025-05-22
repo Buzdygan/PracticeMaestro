@@ -23,7 +23,7 @@ export const PracticeItemSchema = z.object({
   lastPracticed: z.date().optional(),
   intervalStage: z.number().int().min(0).default(0),
   nextDue: z.date().optional(),
-  notes: z.string().optional(),
+  notes: z.string().nullable().optional(),
   // These will be used in future features
   tags: z.array(z.string()).optional(),
   attachments: z.array(z.string()).optional(),
@@ -40,7 +40,7 @@ export const PracticeSessionSchema = z.object({
   date: z.date(),
   status: z.enum(["completed", "struggled", "skipped"]),
   actualTempo: z.number().int().min(40).optional(),
-  notes: z.string().optional(),
+  notes: z.string().nullable().optional(),
 });
 
 // Type for practice session

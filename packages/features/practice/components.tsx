@@ -100,7 +100,7 @@ export const PracticeItemView = ({
   onComplete 
 }: { 
   item: PracticeItem; 
-  onComplete: (status: 'completed' | 'struggled' | 'skipped', actualTempo?: number, notes?: string) => void; 
+  onComplete: (status: 'completed' | 'struggled' | 'skipped', actualTempo?: number, notes?: string | null) => void; 
 }) => {
   const [actualTempo, setActualTempo] = useState<number | undefined>(undefined);
   const [notes, setNotes] = useState('');
@@ -111,7 +111,7 @@ export const PracticeItemView = ({
   };
 
   const handleComplete = (status: 'completed' | 'struggled' | 'skipped') => {
-    onComplete(status, actualTempo, notes.trim() || undefined);
+    onComplete(status, actualTempo, notes.trim() || null);
     setShowFeedback(false);
     setActualTempo(undefined);
     setNotes('');

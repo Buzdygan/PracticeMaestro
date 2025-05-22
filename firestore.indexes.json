@@ -37,6 +37,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "date",
           "order": "DESCENDING"
         }
