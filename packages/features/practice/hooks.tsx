@@ -99,7 +99,7 @@ export const usePracticeSession = () => {
           setSessionCompleted(true);
         }
       } else {
-        // No more items to practice
+        // No more items in the current list
         setCurrentItem(null);
         setSessionCompleted(true);
       }

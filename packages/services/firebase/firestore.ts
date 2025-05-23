@@ -26,7 +26,8 @@ export const addPracticeItem = async (item: Omit<PracticeItem, 'id' | 'createdAt
   const itemWithTimestamps = {
     ...item,
     createdAt: now,
-    updatedAt: now
+    updatedAt: now,
+    nextDue: now
   };
   
   const docRef = await addDoc(practiceItemsCollection, itemWithTimestamps);
@@ -75,17 +76,82 @@ export const getUserPracticeItems = async (userId: string) => {
 };
 
 export const getDuePracticeItems = async (userId: string) => {
-  const today = new Date();
-  
-  const q = query(
-    practiceItemsCollection,
-    where('userId', '==', userId),
-    where('nextDue', '<=', today),
-    orderBy('nextDue', 'asc')
-  );
-  
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as PracticeItem);
+  try {
+    const today = new Date();
+    const allItems: PracticeItem[] = [];
+    
+    // 1. Get all items for this user
+    const userItemsQuery = query(
+      practiceItemsCollection,
+      where('userId', '==', userId)
+    );
+    
+    const allItemsSnapshot = await getDocs(userItemsQuery);
+    
+    // 2. Process each item to determine if it's due
+    allItemsSnapshot.docs.forEach(doc => {
+      const item = { id: doc.id, ...doc.data() } as PracticeItem;
+      
+      // Case 1: Item has nextDue date and it's today or earlier
+      if (item.nextDue) {
+        // Convert Firestore timestamp or Date to JavaScript Date
+        let nextDueDate: Date;
+        
+        // Handle Firestore timestamp
+        if (typeof item.nextDue === 'object' && 'toDate' in item.nextDue) {
+          nextDueDate = (item.nextDue as any).toDate();
+        } 
+        // Handle regular Date
+        else if (item.nextDue instanceof Date) {
+          nextDueDate = item.nextDue;
+        }
+        // Handle everything else as a date string
+        else {
+          nextDueDate = new Date(item.nextDue as any);
+        }
+          
+        if (nextDueDate <= today) {
+          allItems.push(item);
+        }
+      } 
+      // Case 2: Item has never been practiced (no lastPracticed)
+      else if (!item.lastPracticed) {
+        allItems.push(item);
+      }
+    });
+    
+    // 3. Sort items by nextDue date (or createdAt if nextDue is not available)
+    return allItems.sort((a, b) => {
+      // Helper function to safely convert any timestamp to Date
+      const toDate = (timestamp: any): Date => {
+        if (timestamp instanceof Date) return timestamp;
+        if (timestamp && typeof timestamp === 'object' && 'toDate' in timestamp) {
+          return timestamp.toDate();
+        }
+        return new Date(timestamp);
+      };
+      
+      // If both have nextDue dates, compare those
+      if (a.nextDue && b.nextDue) {
+        const dateA = toDate(a.nextDue);
+        const dateB = toDate(b.nextDue);
+        return dateA.getTime() - dateB.getTime();
+      }
+      
+      // If only one has a nextDue date, prioritize that one
+      if (a.nextDue) return -1;
+      if (b.nextDue) return 1;
+      
+      // If neither has a nextDue date, compare by createdAt
+      const dateA = toDate(a.createdAt);
+      const dateB = toDate(b.createdAt);
+      return dateA.getTime() - dateB.getTime();
+    });
+    
+  } catch (error) {
+    console.error("Error fetching practice items:", error);
+    return [];
+  }
 };
 
 // Practice Sessions CRUD operations

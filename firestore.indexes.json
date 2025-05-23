@@ -29,6 +29,20 @@
       ]
     },
     {
+      "collectionGroup": "practiceItems",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastPracticed",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "practiceSessions",
       "queryScope": "COLLECTION",
       "fields": [

@@ -1,5 +1,5 @@
 import { PracticeItem, DEFAULT_INTERVALS } from '../types';
-import { updatePracticeItem } from '../firebase/firestore';
+import { updatePracticeItem, getPracticeItem } from '../firebase/firestore';
 
 /**
  * Calculate the next due date based on the interval stage
@@ -35,24 +35,28 @@ export const updateItemProgress = async (
   status: 'completed' | 'struggled' | 'skipped',
   intervals: number[] = DEFAULT_INTERVALS
 ): Promise<Partial<PracticeItem>> => {
+  // Get the current item to check its current intervalStage
+  const currentItem = await getPracticeItem(itemId);
+  const currentStage = currentItem?.intervalStage || 0;
+  
   const now = new Date();
   let newIntervalStage: number;
   
   switch (status) {
     case 'completed':
-      // Move to next box
-      newIntervalStage = 1; // Start at first box for new items
+      // Move to next box (increment stage)
+      newIntervalStage = Math.min(currentStage + 1, intervals.length - 1);
       break;
     case 'struggled':
       // Move back to first box
       newIntervalStage = 0;
       break;
     case 'skipped':
-      // Keep in current box
-      newIntervalStage = 0;
+      // Keep in current box or decrease slightly
+      newIntervalStage = Math.max(currentStage - 1, 0);
       break;
     default:
-      newIntervalStage = 0;
+      newIntervalStage = currentStage;
   }
   
   const nextDue = calculateNextDue(newIntervalStage, intervals);

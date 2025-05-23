@@ -126,14 +126,28 @@ export const PracticeItemCard = ({
   onEdit: () => void; 
   onDelete: () => void; 
 }) => {
+  // Helper function to safely convert any timestamp to Date
+  const toDate = (timestamp: any): Date | null => {
+    if (!timestamp) return null;
+    if (timestamp instanceof Date) return timestamp;
+    if (timestamp && typeof timestamp === 'object' && 'toDate' in timestamp) {
+      return timestamp.toDate();
+    }
+    // Try to parse it as a date string
+    const parsedDate = new Date(timestamp);
+    return isNaN(parsedDate.getTime()) ? null : parsedDate;
+  };
+
   // Format last practiced date
-  const lastPracticedText = item.lastPracticed 
-    ? new Date(item.lastPracticed).toLocaleDateString() 
+  const lastPracticedDate = toDate(item.lastPracticed);
+  const lastPracticedText = lastPracticedDate 
+    ? lastPracticedDate.toLocaleDateString() 
     : 'Never';
     
   // Format next due date
-  const nextDueText = item.nextDue 
-    ? new Date(item.nextDue).toLocaleDateString() 
+  const nextDueDate = toDate(item.nextDue);
+  const nextDueText = nextDueDate 
+    ? nextDueDate.toLocaleDateString() 
     : 'Not scheduled';
   
   // Display difficulty as stars
