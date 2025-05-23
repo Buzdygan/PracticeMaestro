@@ -46,7 +46,7 @@ export const PracticeContainer = () => {
         <div className="flex justify-center space-x-4">
           <Button 
             onClick={() => window.location.href = '/library'}
-            className="bg-white border border-primary-600 text-primary-600 px-4 py-2 rounded-md"
+            className="bg-primary-600 text-white px-4 py-2 rounded-md"
           >
             Return to Library
           </Button>
@@ -127,6 +127,13 @@ export const PracticeItemView = ({
     setNotes('');
     setRating(3);
   };
+  
+  const handleSkip = () => {
+    onComplete('skipped', undefined, 'Skipped by user');
+    setActualTempo(undefined);
+    setNotes('');
+    setRating(3);
+  };
 
   return (
     <div className="p-6">
@@ -171,7 +178,7 @@ export const PracticeItemView = ({
                 onClick={() => setRating(star)}
                 className="text-2xl focus:outline-none"
               >
-                <span className={`${rating >= star ? 'text-yellow-500' : 'text-gray-300'}`}>
+                <span className={`${rating >= star ? 'text-blue-500' : 'text-white border border-gray-300 rounded-full'}`}>
                   ★
                 </span>
               </button>
@@ -214,12 +221,18 @@ export const PracticeItemView = ({
           />
         </div>
         
-        <div className="flex justify-end mt-6">
+        <div className="flex justify-end mt-6 space-x-4">
+          <Button 
+            onClick={handleSkip}
+            className="border border-gray-300 px-6 py-2 rounded-md"
+          >
+            Skip
+          </Button>
           <Button 
             onClick={handleSubmit}
             className="bg-primary-600 text-white px-6 py-2 rounded-md"
           >
-            Submit Feedback
+            Completed
           </Button>
         </div>
       </div>

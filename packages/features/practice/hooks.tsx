@@ -4,7 +4,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuthStatus } from '@repo/features/auth';
 import { 
   getDuePracticeItems,
+  getUserPracticeItems,
   addPracticeSession,
+  toDate
 } from '@repo/services/firebase/firestore';
 import { PracticeItem, PracticeSession } from '@repo/services/types';
 import { updateItemProgress } from '@repo/services/spaced-repetition/leitner';
@@ -32,6 +34,44 @@ export const usePracticeSession = () => {
       
       // Ensure we have a valid array of items
       const items = Array.isArray(fetchedItems) ? fetchedItems : [];
+      
+      // If no due items found, try to get items with lowest mastery level
+      if (items.length === 0) {
+        // Get all items and sort by interval stage (ascending) to practice least mastered items
+        const allItems = await getUserPracticeItems(user.uid);
+        
+        // Sort all items by interval stage (least mastered first)
+        const sortedItems = allItems.sort((a, b) => {
+          // First sort by intervalStage
+          const stageA = a.intervalStage || 0;
+          const stageB = b.intervalStage || 0;
+          if (stageA !== stageB) return stageA - stageB;
+          
+          // For items with the same interval stage,
+          // prioritize most recently practiced items
+          if (a.lastPracticed && b.lastPracticed) {
+            const dateA = toDate(a.lastPracticed)?.getTime() || 0;
+            const dateB = toDate(b.lastPracticed)?.getTime() || 0;
+            return dateA - dateB; // Earlier practiced first
+          }
+          
+          return 0;
+        });
+        
+        // Take up to 5 items for additional practice
+        const additionalItems = sortedItems.slice(0, 5);
+        
+        if (additionalItems.length > 0) {
+          setDueItems(additionalItems);
+          setCurrentItem(additionalItems[0]);
+          setSessionCompleted(false);
+          setError(null);
+          setLoading(false);
+          return;
+        }
+      }
+      
+      // Normal flow - process due items
       setDueItems(items);
       
       // Set current item
@@ -76,9 +116,13 @@ export const usePracticeSession = () => {
         itemId: currentItem.id,
         date: new Date(),
         status,
-        actualTempo,
         notes
       };
+      
+      // Only add actualTempo to the session if it's defined
+      if (actualTempo !== undefined) {
+        session.actualTempo = actualTempo;
+      }
       
       await addPracticeSession(session);
       

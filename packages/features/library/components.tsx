@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@repo/ui/button';
 import { useLibrary } from './hooks';
 import { PracticeItem, PracticeItemType } from '@repo/services/types';
+import { toDate } from '@repo/services/firebase/firestore';
 
 // Library container component
 export const LibraryContainer = () => {
@@ -126,18 +127,6 @@ export const PracticeItemCard = ({
   onEdit: () => void; 
   onDelete: () => void; 
 }) => {
-  // Helper function to safely convert any timestamp to Date
-  const toDate = (timestamp: any): Date | null => {
-    if (!timestamp) return null;
-    if (timestamp instanceof Date) return timestamp;
-    if (timestamp && typeof timestamp === 'object' && 'toDate' in timestamp) {
-      return timestamp.toDate();
-    }
-    // Try to parse it as a date string
-    const parsedDate = new Date(timestamp);
-    return isNaN(parsedDate.getTime()) ? null : parsedDate;
-  };
-
   // Format last practiced date
   const lastPracticedDate = toDate(item.lastPracticed);
   const lastPracticedText = lastPracticedDate 

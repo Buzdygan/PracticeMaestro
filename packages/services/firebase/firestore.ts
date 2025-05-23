@@ -20,6 +20,18 @@ const db = getFirestore(app);
 const practiceItemsCollection = collection(db, 'practiceItems');
 const practiceSessionsCollection = collection(db, 'practiceSessions');
 
+// Utility function to safely convert any timestamp to Date
+export const toDate = (timestamp: any): Date | null => {
+  if (!timestamp) return null;
+  if (timestamp instanceof Date) return timestamp;
+  if (timestamp && typeof timestamp === 'object' && 'toDate' in timestamp) {
+    return timestamp.toDate();
+  }
+  // Try to parse it as a date string
+  const parsedDate = new Date(timestamp);
+  return isNaN(parsedDate.getTime()) ? null : parsedDate;
+};
+
 // Practice Items CRUD operations
 export const addPracticeItem = async (item: Omit<PracticeItem, 'id' | 'createdAt' | 'updatedAt'>) => {
   const now = new Date();
